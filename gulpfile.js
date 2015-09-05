@@ -73,7 +73,7 @@ gulp.task('inject-svg', function(){
         svgObject[svgArray[i].slice(0,-4)] = tempFile;
     }
 
-    return gulp.src(['build/tute-icons.js'])
+    return gulp.src(['build/svg-icons.js'])
         .pipe(babel())
         .pipe(replace('__REPLACE__', JSON.stringify(svgObject)))
         .pipe(gulp.dest('dist'));
@@ -89,7 +89,7 @@ gulp.task('demo', function () {
 
 
 gulp.task('copy-css', function() {
-    return gulp.src('build/tute-icons.css')
+    return gulp.src('build/svg-icons.css')
         .pipe(gulp.dest('dist'))
 });
 

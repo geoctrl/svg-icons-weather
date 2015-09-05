@@ -1,11 +1,11 @@
 {
   "name": "icons",
   "version": "1.0.0",
-  "homepage": "https://github.com/tutegenomics/icons",
+  "homepage": "https://github.com/geoctrl/svg-icons",
   "authors": [
     "Tony <tonylefler@gmail.com>"
   ],
-  "main": "dist/tute-icons.js",
+  "main": "dist/svg-icons.js",
   "license": "MIT",
   "ignore": [
     "**/.*",

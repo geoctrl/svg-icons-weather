@@ -1,13 +1,13 @@
-# Tute Icons
+# Svg Icons
 
 ## Install
 
 ```
-bower install tute-icons
+bower install svg-icons
 ```
 
 ```
-npm install tute-icons
+npm install svg-icons
 ```
 
 
@@ -22,15 +22,15 @@ npm install tute-icons
 </main>
 
 <script src="build/lib/angular/angular.min.js"></script>
-<script src="dist/tute-icons.js"></script>
+<script src="dist/svg-icons.js"></script>
 <script>
 	//include module in app
 	angular.module('exampleApp', [
-		'tute-icons'
+		'svg-icons'
 	])
 	//if you want to configure options:
-	.run(function(tuteIconProvider) {
-		tuteIconProvider.setOpts({
+	.run(function(svgIconProvider) {
+		svgIconProvider.setOpts({
 			baseClass: 'icon-ex'
 		});
 	});
