@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+	<title>Tute Icons</title>
+    <link rel="stylesheet" href="dist/icon-push.css">
+    <style>
+    	html {
+    		font-size: 16px;
+    		font-family: sans-serif;
+    	}
+    	.icon-ex {
+    		height: 52px;
+    		width: 52px;
+    		fill: #555;
+    		display: inline-block;
+    		vertical-align: middle;
+    	}
+    	.blue {
+    		font-size: 24px;
+    		color: steelblue;
+    	}
+    	.blue .icon-ex {
+    	    height: 24px;
+    		width: 24px;
+    		fill: steelblue;
+    	}
+    </style>
+</head>
+<body>
+
+	<main ng-app="exampleApp">
+		<!-- outputs symbol definition xml -->
+		<icon-defs></icon-defs>
+
+		<!-- use svg symbol/icon -->
+		<icon icon="apps" class="my custom classes here"></icon>
+		<icon icon="grid-on"></icon>
+		
+		<p class="blue">
+			Menu <icon icon="menu" class="icon-sm"></icon>
+		</p>
+
+	</main>
+
+	<script src="build/lib/angular/angular.min.js"></script>
+	<script src="dist/icon-push.js"></script>
+	<script>
+		//include module in app
+		angular.module('exampleApp', [
+			'tute-icons'
+		])
+		//if you want to configure options: 
+		.run(function(iconPushProvider) {
+			iconPushProvider.setOpts({
+				baseClass: 'icon-ex'
+			});
+		});
+
+	</script>
+
+</body>
+</html>
