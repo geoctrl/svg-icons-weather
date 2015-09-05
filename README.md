@@ -6,11 +6,6 @@
 bower install svg-icons
 ```
 
-```
-npm install svg-icons
-```
-
-
 ## Example usage
 
 ```html
