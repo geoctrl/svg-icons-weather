@@ -3,7 +3,7 @@
 ## Install
 
 ```
-bower install svg-icons
+bower install svg-icons --save
 ```
 
 ## Example usage
