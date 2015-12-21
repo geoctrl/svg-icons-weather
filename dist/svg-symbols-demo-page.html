@@ -19,15 +19,96 @@
         margin: 0 0 1em; padding: 1em;
         background: white;
       }
-      div {
-        display: inline-block;
-        background: white;
-        margin: .5em; padding: 1em;
-        border-radius: .5em;
+      main {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      main::after {
+        content: '';
+        flex-grow: 100;
       }
       p {
-        margin: 0; padding: 0 0 .5em;
+        margin: 0;
+        padding: 0 0 .5em;
       }
+      .icon,
+      .icon-wrapper {
+        background: white;
+        margin: .5em;
+        padding: 1em;
+        border-radius: .5em;
+      }
+      .icon {
+        display: inline-block;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 0;
+        min-width: 8em;
+      }
+      .icon-wrapper {
+        background-color: #fafafa;
+        background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc),
+        linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc);
+        background-size:30px 30px;
+        background-position:0 0, 15px 15px;
+        margin: auto;
+      }
+      .icon-action {
+        margin: 1em -1em 0;
+        border-top: 1px solid #eee;
+        display: flex;
+      }
+      .icon-action > * {
+        flex-grow: 1;
+      }
+
+      button {
+        font: inherit;
+        background: none;
+        border: 0;
+        outline: 0;
+      }
+      button,
+      label {
+        padding: 1em .5em;
+        flex-basis: 50%;
+        cursor: pointer;
+      }
+      button:hover,
+      label:hover {
+        color: mediumVioletRed;
+      }
+      label {
+        border-left: 1px solid #eee;
+      }
+      input[type=checkbox] {
+        display: none;
+      }
+      /* can't display none: copy won't work */
+      pre {
+        text-align: left;
+        position: absolute;
+        opacity: 0;
+        z-index: 2;
+        padding: 1em;
+        pointer-events: none;
+        border-top: 1px solid #eee;
+        margin: 0 -1em;
+        width: 0;
+      }
+      input:checked ~ .icon-action label {
+        background: #eee;
+      }
+      input:checked ~ pre {
+        position: static;
+        pointer-events: auto;
+        opacity: 1;
+        width: 100%;
+      }
+    </style>
+    <style type="text/css">
       .add-circle-outline {
         width: 24px;
         height: 24px;
@@ -69,6 +150,10 @@
         height: 24px;
       }
       .book {
+        width: 24px;
+        height: 24px;
+      }
+      .bookmark_outline {
         width: 24px;
         height: 24px;
       }
@@ -200,6 +285,10 @@
         width: 24px;
         height: 24px;
       }
+      .share {
+        width: 24px;
+        height: 24px;
+      }
       .star-outline {
         width: 24px;
         height: 24px;
@@ -267,7 +356,7 @@
     </symbol>
     <symbol id="arrow-down" viewBox="-287 189 24 24">
       <title>arrow-down icon</title>
-      <style type="text/css">.st0{fill:#404040;}</style><path class="st0" d="M-276 193v12.2l-5.6-5.6-1.4 1.4 8 8 8-8-1.4-1.4-5.6 5.6V193h-2z"/>
+      <style>.st0{fill:#404040;}</style><path class="st0" d="M-276 193v12.2l-5.6-5.6-1.4 1.4 8 8 8-8-1.4-1.4-5.6 5.6V193h-2z"/>
     </symbol>
     <symbol id="arrow-drop-down" viewBox="0 0 24 24">
       <title>arrow-drop-down icon</title>
@@ -283,11 +372,15 @@
     </symbol>
     <symbol id="arrow-up" viewBox="-287 189 24 24">
       <title>arrow-up icon</title>
-      <style type="text/css">.st0{fill:#404040;}</style><path class="st0" d="M-274 209v-12.2l5.6 5.6 1.4-1.4-8-8-8 8 1.4 1.4 5.6-5.6V209h2z"/>
+      <style>.st0{fill:#404040;}</style><path class="st0" d="M-274 209v-12.2l5.6 5.6 1.4-1.4-8-8-8 8 1.4 1.4 5.6-5.6V209h2z"/>
     </symbol>
     <symbol id="book" viewBox="0 0 24 24">
       <title>book icon</title>
       <path fill="#404040" d="M18 2H6c-1.105 0-2 .895-2 2v16c0 1.105.895 2 2 2h12c1.105 0 2-.895 2-2V4c0-1.105-.895-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
+    </symbol>
+    <symbol id="bookmark_outline" viewBox="0 0 24 24">
+      <title>bookmark_outline icon</title>
+      <path fill="#404040" d="M17.016 18V5.016H6.986V18L12 15.797zm0-15q.797 0 1.383.61t.585 1.405V21L12 18l-6.983 3V5.014q0-.797.586-1.406T6.986 3h10.03z"/>
     </symbol>
     <symbol id="check-box-outline-blank" viewBox="0 0 24 24">
       <title>check-box-outline-blank icon</title>
@@ -417,6 +510,10 @@
       <title>settings icon</title>
       <path fill="#404040" d="M19.43 12.975c.04-.32.07-.645.07-.975s-.03-.655-.07-.975l2.115-1.655c.19-.15.245-.42.12-.64l-2-3.465c-.125-.215-.385-.305-.61-.215l-2.49 1.005c-.515-.395-1.08-.73-1.69-.985L14.5 2.42c-.045-.235-.25-.42-.5-.42h-4c-.25 0-.455.185-.495.42L9.13 5.07c-.61.255-1.175.585-1.69.985L4.95 5.05c-.225-.085-.485 0-.61.215l-2 3.465c-.125.215-.07.485.12.64l2.11 1.655c-.04.32-.07.645-.07.975s.03.655.07.975L2.46 14.63c-.19.15-.245.42-.12.64l2 3.465c.125.215.385.305.61.215l2.49-1.005c.515.395 1.08.73 1.69.985l.375 2.65c.04.235.245.42.495.42h4c.25 0 .455-.185.495-.42l.375-2.65c.61-.255 1.175-.585 1.69-.985l2.49 1.005c.225.085.485 0 .61-.215l2-3.465c.125-.215.07-.485-.12-.64l-2.11-1.655zM12 15.5c-1.935 0-3.5-1.565-3.5-3.5s1.565-3.5 3.5-3.5 3.5 1.565 3.5 3.5-1.565 3.5-3.5 3.5z"/>
     </symbol>
+    <symbol id="share" viewBox="0 0 24 24">
+      <title>share icon</title>
+      <path fill="#404040" d="M18 16.078q1.22 0 2.063.867t.844 2.04q0 1.218-.867 2.085t-2.04.867-2.038-.867-.867-2.086q0-.47.047-.656l-7.078-4.125Q7.174 15 6 15q-1.218 0-2.108-.89T3.002 12t.89-2.11T6.002 9q1.17 0 2.062.797l7.03-4.078q-.093-.47-.093-.704 0-1.22.892-2.11t2.11-.89 2.108.89.89 2.11-.89 2.11-2.11.89q-1.124 0-2.062-.844l-7.03 4.125Q9 11.767 9 12t-.093.703l7.125 4.125q.844-.75 1.97-.75z"/>
+    </symbol>
     <symbol id="star-outline" viewBox="0 0 24 24">
       <title>star-outline icon</title>
       <path fill="#404040" d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
@@ -459,324 +556,1135 @@
     </symbol></svg>
     <h1>Gulp SVG Symbols demo page</h1>
     <main>
-      <div>
+      <div class="icon">
         <p>#add-circle-outline</p>
-        <svg role="img" class="add-circle-outline">
-          <use xlink:href="#add-circle-outline"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="add-circle-outline">
+            <use xlink:href="#add-circle-outline"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-add-circle-outline" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-add-circle-outline')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-add-circle-outline')" for="toggle-add-circle-outline">Show</label>
+          </div>
+<pre>
+<code id="code-add-circle-outline">&lt;svg role=&quot;img&quot; class=&quot;add-circle-outline&quot;&gt;
+  &lt;use xlink:href=&quot;#add-circle-outline&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#add-circle</p>
-        <svg role="img" class="add-circle">
-          <use xlink:href="#add-circle"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="add-circle">
+            <use xlink:href="#add-circle"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-add-circle" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-add-circle')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-add-circle')" for="toggle-add-circle">Show</label>
+          </div>
+<pre>
+<code id="code-add-circle">&lt;svg role=&quot;img&quot; class=&quot;add-circle&quot;&gt;
+  &lt;use xlink:href=&quot;#add-circle&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#add</p>
-        <svg role="img" class="add">
-          <use xlink:href="#add"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="add">
+            <use xlink:href="#add"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-add" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-add')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-add')" for="toggle-add">Show</label>
+          </div>
+<pre>
+<code id="code-add">&lt;svg role=&quot;img&quot; class=&quot;add&quot;&gt;
+  &lt;use xlink:href=&quot;#add&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#apps</p>
-        <svg role="img" class="apps">
-          <use xlink:href="#apps"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="apps">
+            <use xlink:href="#apps"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-apps" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-apps')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-apps')" for="toggle-apps">Show</label>
+          </div>
+<pre>
+<code id="code-apps">&lt;svg role=&quot;img&quot; class=&quot;apps&quot;&gt;
+  &lt;use xlink:href=&quot;#apps&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#arrow-back</p>
-        <svg role="img" class="arrow-back">
-          <use xlink:href="#arrow-back"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="arrow-back">
+            <use xlink:href="#arrow-back"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-arrow-back" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-arrow-back')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-arrow-back')" for="toggle-arrow-back">Show</label>
+          </div>
+<pre>
+<code id="code-arrow-back">&lt;svg role=&quot;img&quot; class=&quot;arrow-back&quot;&gt;
+  &lt;use xlink:href=&quot;#arrow-back&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#arrow-down</p>
-        <svg role="img" class="arrow-down">
-          <use xlink:href="#arrow-down"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="arrow-down">
+            <use xlink:href="#arrow-down"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-arrow-down" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-arrow-down')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-arrow-down')" for="toggle-arrow-down">Show</label>
+          </div>
+<pre>
+<code id="code-arrow-down">&lt;svg role=&quot;img&quot; class=&quot;arrow-down&quot;&gt;
+  &lt;use xlink:href=&quot;#arrow-down&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#arrow-drop-down</p>
-        <svg role="img" class="arrow-drop-down">
-          <use xlink:href="#arrow-drop-down"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="arrow-drop-down">
+            <use xlink:href="#arrow-drop-down"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-arrow-drop-down" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-arrow-drop-down')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-arrow-drop-down')" for="toggle-arrow-drop-down">Show</label>
+          </div>
+<pre>
+<code id="code-arrow-drop-down">&lt;svg role=&quot;img&quot; class=&quot;arrow-drop-down&quot;&gt;
+  &lt;use xlink:href=&quot;#arrow-drop-down&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#arrow-drop-up</p>
-        <svg role="img" class="arrow-drop-up">
-          <use xlink:href="#arrow-drop-up"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="arrow-drop-up">
+            <use xlink:href="#arrow-drop-up"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-arrow-drop-up" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-arrow-drop-up')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-arrow-drop-up')" for="toggle-arrow-drop-up">Show</label>
+          </div>
+<pre>
+<code id="code-arrow-drop-up">&lt;svg role=&quot;img&quot; class=&quot;arrow-drop-up&quot;&gt;
+  &lt;use xlink:href=&quot;#arrow-drop-up&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#arrow-forward</p>
-        <svg role="img" class="arrow-forward">
-          <use xlink:href="#arrow-forward"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="arrow-forward">
+            <use xlink:href="#arrow-forward"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-arrow-forward" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-arrow-forward')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-arrow-forward')" for="toggle-arrow-forward">Show</label>
+          </div>
+<pre>
+<code id="code-arrow-forward">&lt;svg role=&quot;img&quot; class=&quot;arrow-forward&quot;&gt;
+  &lt;use xlink:href=&quot;#arrow-forward&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#arrow-up</p>
-        <svg role="img" class="arrow-up">
-          <use xlink:href="#arrow-up"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="arrow-up">
+            <use xlink:href="#arrow-up"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-arrow-up" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-arrow-up')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-arrow-up')" for="toggle-arrow-up">Show</label>
+          </div>
+<pre>
+<code id="code-arrow-up">&lt;svg role=&quot;img&quot; class=&quot;arrow-up&quot;&gt;
+  &lt;use xlink:href=&quot;#arrow-up&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#book</p>
-        <svg role="img" class="book">
-          <use xlink:href="#book"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="book">
+            <use xlink:href="#book"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-book" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-book')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-book')" for="toggle-book">Show</label>
+          </div>
+<pre>
+<code id="code-book">&lt;svg role=&quot;img&quot; class=&quot;book&quot;&gt;
+  &lt;use xlink:href=&quot;#book&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
+        <p>#bookmark_outline</p>
+        <div class="icon-wrapper">
+          <svg role="img" class="bookmark_outline">
+            <use xlink:href="#bookmark_outline"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-bookmark_outline" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-bookmark_outline')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-bookmark_outline')" for="toggle-bookmark_outline">Show</label>
+          </div>
+<pre>
+<code id="code-bookmark_outline">&lt;svg role=&quot;img&quot; class=&quot;bookmark_outline&quot;&gt;
+  &lt;use xlink:href=&quot;#bookmark_outline&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
+      </div>
+      <div class="icon">
         <p>#check-box-outline-blank</p>
-        <svg role="img" class="check-box-outline-blank">
-          <use xlink:href="#check-box-outline-blank"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="check-box-outline-blank">
+            <use xlink:href="#check-box-outline-blank"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-check-box-outline-blank" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-check-box-outline-blank')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-check-box-outline-blank')" for="toggle-check-box-outline-blank">Show</label>
+          </div>
+<pre>
+<code id="code-check-box-outline-blank">&lt;svg role=&quot;img&quot; class=&quot;check-box-outline-blank&quot;&gt;
+  &lt;use xlink:href=&quot;#check-box-outline-blank&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#check-box</p>
-        <svg role="img" class="check-box">
-          <use xlink:href="#check-box"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="check-box">
+            <use xlink:href="#check-box"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-check-box" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-check-box')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-check-box')" for="toggle-check-box">Show</label>
+          </div>
+<pre>
+<code id="code-check-box">&lt;svg role=&quot;img&quot; class=&quot;check-box&quot;&gt;
+  &lt;use xlink:href=&quot;#check-box&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#check</p>
-        <svg role="img" class="check">
-          <use xlink:href="#check"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="check">
+            <use xlink:href="#check"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-check" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-check')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-check')" for="toggle-check">Show</label>
+          </div>
+<pre>
+<code id="code-check">&lt;svg role=&quot;img&quot; class=&quot;check&quot;&gt;
+  &lt;use xlink:href=&quot;#check&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#chevron-left</p>
-        <svg role="img" class="chevron-left">
-          <use xlink:href="#chevron-left"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="chevron-left">
+            <use xlink:href="#chevron-left"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-chevron-left" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-chevron-left')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-chevron-left')" for="toggle-chevron-left">Show</label>
+          </div>
+<pre>
+<code id="code-chevron-left">&lt;svg role=&quot;img&quot; class=&quot;chevron-left&quot;&gt;
+  &lt;use xlink:href=&quot;#chevron-left&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#chevron-right</p>
-        <svg role="img" class="chevron-right">
-          <use xlink:href="#chevron-right"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="chevron-right">
+            <use xlink:href="#chevron-right"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-chevron-right" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-chevron-right')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-chevron-right')" for="toggle-chevron-right">Show</label>
+          </div>
+<pre>
+<code id="code-chevron-right">&lt;svg role=&quot;img&quot; class=&quot;chevron-right&quot;&gt;
+  &lt;use xlink:href=&quot;#chevron-right&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#close</p>
-        <svg role="img" class="close">
-          <use xlink:href="#close"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="close">
+            <use xlink:href="#close"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-close" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-close')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-close')" for="toggle-close">Show</label>
+          </div>
+<pre>
+<code id="code-close">&lt;svg role=&quot;img&quot; class=&quot;close&quot;&gt;
+  &lt;use xlink:href=&quot;#close&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#delete</p>
-        <svg role="img" class="delete">
-          <use xlink:href="#delete"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="delete">
+            <use xlink:href="#delete"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-delete" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-delete')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-delete')" for="toggle-delete">Show</label>
+          </div>
+<pre>
+<code id="code-delete">&lt;svg role=&quot;img&quot; class=&quot;delete&quot;&gt;
+  &lt;use xlink:href=&quot;#delete&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#do-not-disturb</p>
-        <svg role="img" class="do-not-disturb">
-          <use xlink:href="#do-not-disturb"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="do-not-disturb">
+            <use xlink:href="#do-not-disturb"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-do-not-disturb" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-do-not-disturb')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-do-not-disturb')" for="toggle-do-not-disturb">Show</label>
+          </div>
+<pre>
+<code id="code-do-not-disturb">&lt;svg role=&quot;img&quot; class=&quot;do-not-disturb&quot;&gt;
+  &lt;use xlink:href=&quot;#do-not-disturb&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#done</p>
-        <svg role="img" class="done">
-          <use xlink:href="#done"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="done">
+            <use xlink:href="#done"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-done" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-done')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-done')" for="toggle-done">Show</label>
+          </div>
+<pre>
+<code id="code-done">&lt;svg role=&quot;img&quot; class=&quot;done&quot;&gt;
+  &lt;use xlink:href=&quot;#done&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#edit</p>
-        <svg role="img" class="edit">
-          <use xlink:href="#edit"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="edit">
+            <use xlink:href="#edit"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-edit" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-edit')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-edit')" for="toggle-edit">Show</label>
+          </div>
+<pre>
+<code id="code-edit">&lt;svg role=&quot;img&quot; class=&quot;edit&quot;&gt;
+  &lt;use xlink:href=&quot;#edit&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#email</p>
-        <svg role="img" class="email">
-          <use xlink:href="#email"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="email">
+            <use xlink:href="#email"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-email" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-email')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-email')" for="toggle-email">Show</label>
+          </div>
+<pre>
+<code id="code-email">&lt;svg role=&quot;img&quot; class=&quot;email&quot;&gt;
+  &lt;use xlink:href=&quot;#email&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#error</p>
-        <svg role="img" class="error">
-          <use xlink:href="#error"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="error">
+            <use xlink:href="#error"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-error" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-error')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-error')" for="toggle-error">Show</label>
+          </div>
+<pre>
+<code id="code-error">&lt;svg role=&quot;img&quot; class=&quot;error&quot;&gt;
+  &lt;use xlink:href=&quot;#error&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#file</p>
-        <svg role="img" class="file">
-          <use xlink:href="#file"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="file">
+            <use xlink:href="#file"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-file" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-file')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-file')" for="toggle-file">Show</label>
+          </div>
+<pre>
+<code id="code-file">&lt;svg role=&quot;img&quot; class=&quot;file&quot;&gt;
+  &lt;use xlink:href=&quot;#file&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#grid-on</p>
-        <svg role="img" class="grid-on">
-          <use xlink:href="#grid-on"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="grid-on">
+            <use xlink:href="#grid-on"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-grid-on" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-grid-on')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-grid-on')" for="toggle-grid-on">Show</label>
+          </div>
+<pre>
+<code id="code-grid-on">&lt;svg role=&quot;img&quot; class=&quot;grid-on&quot;&gt;
+  &lt;use xlink:href=&quot;#grid-on&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#help</p>
-        <svg role="img" class="help">
-          <use xlink:href="#help"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="help">
+            <use xlink:href="#help"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-help" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-help')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-help')" for="toggle-help">Show</label>
+          </div>
+<pre>
+<code id="code-help">&lt;svg role=&quot;img&quot; class=&quot;help&quot;&gt;
+  &lt;use xlink:href=&quot;#help&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#info-outline</p>
-        <svg role="img" class="info-outline">
-          <use xlink:href="#info-outline"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="info-outline">
+            <use xlink:href="#info-outline"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-info-outline" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-info-outline')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-info-outline')" for="toggle-info-outline">Show</label>
+          </div>
+<pre>
+<code id="code-info-outline">&lt;svg role=&quot;img&quot; class=&quot;info-outline&quot;&gt;
+  &lt;use xlink:href=&quot;#info-outline&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#info</p>
-        <svg role="img" class="info">
-          <use xlink:href="#info"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="info">
+            <use xlink:href="#info"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-info" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-info')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-info')" for="toggle-info">Show</label>
+          </div>
+<pre>
+<code id="code-info">&lt;svg role=&quot;img&quot; class=&quot;info&quot;&gt;
+  &lt;use xlink:href=&quot;#info&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#list</p>
-        <svg role="img" class="list">
-          <use xlink:href="#list"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="list">
+            <use xlink:href="#list"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-list" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-list')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-list')" for="toggle-list">Show</label>
+          </div>
+<pre>
+<code id="code-list">&lt;svg role=&quot;img&quot; class=&quot;list&quot;&gt;
+  &lt;use xlink:href=&quot;#list&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#menu</p>
-        <svg role="img" class="menu">
-          <use xlink:href="#menu"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="menu">
+            <use xlink:href="#menu"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-menu" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-menu')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-menu')" for="toggle-menu">Show</label>
+          </div>
+<pre>
+<code id="code-menu">&lt;svg role=&quot;img&quot; class=&quot;menu&quot;&gt;
+  &lt;use xlink:href=&quot;#menu&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#more-horiz</p>
-        <svg role="img" class="more-horiz">
-          <use xlink:href="#more-horiz"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="more-horiz">
+            <use xlink:href="#more-horiz"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-more-horiz" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-more-horiz')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-more-horiz')" for="toggle-more-horiz">Show</label>
+          </div>
+<pre>
+<code id="code-more-horiz">&lt;svg role=&quot;img&quot; class=&quot;more-horiz&quot;&gt;
+  &lt;use xlink:href=&quot;#more-horiz&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#more-vert</p>
-        <svg role="img" class="more-vert">
-          <use xlink:href="#more-vert"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="more-vert">
+            <use xlink:href="#more-vert"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-more-vert" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-more-vert')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-more-vert')" for="toggle-more-vert">Show</label>
+          </div>
+<pre>
+<code id="code-more-vert">&lt;svg role=&quot;img&quot; class=&quot;more-vert&quot;&gt;
+  &lt;use xlink:href=&quot;#more-vert&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#notifications</p>
-        <svg role="img" class="notifications">
-          <use xlink:href="#notifications"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="notifications">
+            <use xlink:href="#notifications"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-notifications" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-notifications')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-notifications')" for="toggle-notifications">Show</label>
+          </div>
+<pre>
+<code id="code-notifications">&lt;svg role=&quot;img&quot; class=&quot;notifications&quot;&gt;
+  &lt;use xlink:href=&quot;#notifications&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#pause</p>
-        <svg role="img" class="pause">
-          <use xlink:href="#pause"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="pause">
+            <use xlink:href="#pause"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-pause" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-pause')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-pause')" for="toggle-pause">Show</label>
+          </div>
+<pre>
+<code id="code-pause">&lt;svg role=&quot;img&quot; class=&quot;pause&quot;&gt;
+  &lt;use xlink:href=&quot;#pause&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#people</p>
-        <svg role="img" class="people">
-          <use xlink:href="#people"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="people">
+            <use xlink:href="#people"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-people" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-people')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-people')" for="toggle-people">Show</label>
+          </div>
+<pre>
+<code id="code-people">&lt;svg role=&quot;img&quot; class=&quot;people&quot;&gt;
+  &lt;use xlink:href=&quot;#people&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#play-arrow</p>
-        <svg role="img" class="play-arrow">
-          <use xlink:href="#play-arrow"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="play-arrow">
+            <use xlink:href="#play-arrow"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-play-arrow" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-play-arrow')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-play-arrow')" for="toggle-play-arrow">Show</label>
+          </div>
+<pre>
+<code id="code-play-arrow">&lt;svg role=&quot;img&quot; class=&quot;play-arrow&quot;&gt;
+  &lt;use xlink:href=&quot;#play-arrow&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#profile</p>
-        <svg role="img" class="profile">
-          <use xlink:href="#profile"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="profile">
+            <use xlink:href="#profile"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-profile" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-profile')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-profile')" for="toggle-profile">Show</label>
+          </div>
+<pre>
+<code id="code-profile">&lt;svg role=&quot;img&quot; class=&quot;profile&quot;&gt;
+  &lt;use xlink:href=&quot;#profile&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#remove-circle-outline</p>
-        <svg role="img" class="remove-circle-outline">
-          <use xlink:href="#remove-circle-outline"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="remove-circle-outline">
+            <use xlink:href="#remove-circle-outline"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-remove-circle-outline" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-remove-circle-outline')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-remove-circle-outline')" for="toggle-remove-circle-outline">Show</label>
+          </div>
+<pre>
+<code id="code-remove-circle-outline">&lt;svg role=&quot;img&quot; class=&quot;remove-circle-outline&quot;&gt;
+  &lt;use xlink:href=&quot;#remove-circle-outline&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#remove-circle</p>
-        <svg role="img" class="remove-circle">
-          <use xlink:href="#remove-circle"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="remove-circle">
+            <use xlink:href="#remove-circle"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-remove-circle" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-remove-circle')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-remove-circle')" for="toggle-remove-circle">Show</label>
+          </div>
+<pre>
+<code id="code-remove-circle">&lt;svg role=&quot;img&quot; class=&quot;remove-circle&quot;&gt;
+  &lt;use xlink:href=&quot;#remove-circle&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#remove</p>
-        <svg role="img" class="remove">
-          <use xlink:href="#remove"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="remove">
+            <use xlink:href="#remove"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-remove" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-remove')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-remove')" for="toggle-remove">Show</label>
+          </div>
+<pre>
+<code id="code-remove">&lt;svg role=&quot;img&quot; class=&quot;remove&quot;&gt;
+  &lt;use xlink:href=&quot;#remove&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#search</p>
-        <svg role="img" class="search">
-          <use xlink:href="#search"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="search">
+            <use xlink:href="#search"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-search" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-search')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-search')" for="toggle-search">Show</label>
+          </div>
+<pre>
+<code id="code-search">&lt;svg role=&quot;img&quot; class=&quot;search&quot;&gt;
+  &lt;use xlink:href=&quot;#search&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#server</p>
-        <svg role="img" class="server">
-          <use xlink:href="#server"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="server">
+            <use xlink:href="#server"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-server" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-server')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-server')" for="toggle-server">Show</label>
+          </div>
+<pre>
+<code id="code-server">&lt;svg role=&quot;img&quot; class=&quot;server&quot;&gt;
+  &lt;use xlink:href=&quot;#server&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#settings</p>
-        <svg role="img" class="settings">
-          <use xlink:href="#settings"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="settings">
+            <use xlink:href="#settings"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-settings" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-settings')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-settings')" for="toggle-settings">Show</label>
+          </div>
+<pre>
+<code id="code-settings">&lt;svg role=&quot;img&quot; class=&quot;settings&quot;&gt;
+  &lt;use xlink:href=&quot;#settings&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
+        <p>#share</p>
+        <div class="icon-wrapper">
+          <svg role="img" class="share">
+            <use xlink:href="#share"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-share" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-share')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-share')" for="toggle-share">Show</label>
+          </div>
+<pre>
+<code id="code-share">&lt;svg role=&quot;img&quot; class=&quot;share&quot;&gt;
+  &lt;use xlink:href=&quot;#share&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
+      </div>
+      <div class="icon">
         <p>#star-outline</p>
-        <svg role="img" class="star-outline">
-          <use xlink:href="#star-outline"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="star-outline">
+            <use xlink:href="#star-outline"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-star-outline" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-star-outline')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-star-outline')" for="toggle-star-outline">Show</label>
+          </div>
+<pre>
+<code id="code-star-outline">&lt;svg role=&quot;img&quot; class=&quot;star-outline&quot;&gt;
+  &lt;use xlink:href=&quot;#star-outline&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#star</p>
-        <svg role="img" class="star">
-          <use xlink:href="#star"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="star">
+            <use xlink:href="#star"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-star" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-star')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-star')" for="toggle-star">Show</label>
+          </div>
+<pre>
+<code id="code-star">&lt;svg role=&quot;img&quot; class=&quot;star&quot;&gt;
+  &lt;use xlink:href=&quot;#star&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#sync</p>
-        <svg role="img" class="sync">
-          <use xlink:href="#sync"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="sync">
+            <use xlink:href="#sync"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-sync" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-sync')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-sync')" for="toggle-sync">Show</label>
+          </div>
+<pre>
+<code id="code-sync">&lt;svg role=&quot;img&quot; class=&quot;sync&quot;&gt;
+  &lt;use xlink:href=&quot;#sync&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#thumb-down</p>
-        <svg role="img" class="thumb-down">
-          <use xlink:href="#thumb-down"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="thumb-down">
+            <use xlink:href="#thumb-down"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-thumb-down" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-thumb-down')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-thumb-down')" for="toggle-thumb-down">Show</label>
+          </div>
+<pre>
+<code id="code-thumb-down">&lt;svg role=&quot;img&quot; class=&quot;thumb-down&quot;&gt;
+  &lt;use xlink:href=&quot;#thumb-down&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#thumb-up</p>
-        <svg role="img" class="thumb-up">
-          <use xlink:href="#thumb-up"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="thumb-up">
+            <use xlink:href="#thumb-up"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-thumb-up" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-thumb-up')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-thumb-up')" for="toggle-thumb-up">Show</label>
+          </div>
+<pre>
+<code id="code-thumb-up">&lt;svg role=&quot;img&quot; class=&quot;thumb-up&quot;&gt;
+  &lt;use xlink:href=&quot;#thumb-up&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#view-headline</p>
-        <svg role="img" class="view-headline">
-          <use xlink:href="#view-headline"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="view-headline">
+            <use xlink:href="#view-headline"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-view-headline" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-view-headline')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-view-headline')" for="toggle-view-headline">Show</label>
+          </div>
+<pre>
+<code id="code-view-headline">&lt;svg role=&quot;img&quot; class=&quot;view-headline&quot;&gt;
+  &lt;use xlink:href=&quot;#view-headline&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#view-list</p>
-        <svg role="img" class="view-list">
-          <use xlink:href="#view-list"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="view-list">
+            <use xlink:href="#view-list"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-view-list" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-view-list')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-view-list')" for="toggle-view-list">Show</label>
+          </div>
+<pre>
+<code id="code-view-list">&lt;svg role=&quot;img&quot; class=&quot;view-list&quot;&gt;
+  &lt;use xlink:href=&quot;#view-list&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#view-module</p>
-        <svg role="img" class="view-module">
-          <use xlink:href="#view-module"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="view-module">
+            <use xlink:href="#view-module"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-view-module" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-view-module')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-view-module')" for="toggle-view-module">Show</label>
+          </div>
+<pre>
+<code id="code-view-module">&lt;svg role=&quot;img&quot; class=&quot;view-module&quot;&gt;
+  &lt;use xlink:href=&quot;#view-module&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#warning-stop</p>
-        <svg role="img" class="warning-stop">
-          <use xlink:href="#warning-stop"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="warning-stop">
+            <use xlink:href="#warning-stop"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-warning-stop" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-warning-stop')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-warning-stop')" for="toggle-warning-stop">Show</label>
+          </div>
+<pre>
+<code id="code-warning-stop">&lt;svg role=&quot;img&quot; class=&quot;warning-stop&quot;&gt;
+  &lt;use xlink:href=&quot;#warning-stop&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
-      <div>
+      <div class="icon">
         <p>#warning</p>
-        <svg role="img" class="warning">
-          <use xlink:href="#warning"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="warning">
+            <use xlink:href="#warning"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-warning" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-warning')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-warning')" for="toggle-warning">Show</label>
+          </div>
+<pre>
+<code id="code-warning">&lt;svg role=&quot;img&quot; class=&quot;warning&quot;&gt;
+  &lt;use xlink:href=&quot;#warning&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
       </div>
     </main>
+    <script type="text/javascript">
+      (function () {
+        // https://developers.google.com/web/updates/2015/04/cut-and-copy-commands
+        var symb = window.gulpSvgSymbol = {};
+        var main = document.getElementsByTagName('main')[0];
+        symb.copy = function (id) {
+          window.getSelection().removeAllRanges();
+          var code = document.getElementById(id);
+          var range = document.createRange();
+          range.selectNode(code);
+          window.getSelection().addRange(range);
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+          } catch(err) {
+            console.log('Oops, unable to copy');
+          }
+          window.getSelection().removeAllRanges();
+        }
+        // Force a reflow so sizes are back to initials…
+        symb.reflow = function (id) {
+          var code = document.getElementById(id);
+          code.style.display = 'none';
+          window.setTimeout(function () {
+            code.style.display = '';
+          }, 0);
+        }
+      }());
+    </script>
   </body>
 </html>
