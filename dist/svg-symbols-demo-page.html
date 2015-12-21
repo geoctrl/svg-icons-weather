@@ -153,7 +153,11 @@
         width: 24px;
         height: 24px;
       }
-      .bookmark_outline {
+      .bookmark-outline-plus {
+        width: 24px;
+        height: 24px;
+      }
+      .bookmark-remove {
         width: 24px;
         height: 24px;
       }
@@ -378,9 +382,13 @@
       <title>book icon</title>
       <path fill="#404040" d="M18 2H6c-1.105 0-2 .895-2 2v16c0 1.105.895 2 2 2h12c1.105 0 2-.895 2-2V4c0-1.105-.895-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/>
     </symbol>
-    <symbol id="bookmark_outline" viewBox="0 0 24 24">
-      <title>bookmark_outline icon</title>
-      <path fill="#404040" d="M17.016 18V5.016H6.986V18L12 15.797zm0-15q.797 0 1.383.61t.585 1.405V21L12 18l-6.983 3V5.014q0-.797.586-1.406T6.986 3h10.03z"/>
+    <symbol id="bookmark-outline-plus" viewBox="0 0 24 24">
+      <title>bookmark-outline-plus icon</title>
+      <path d="M17 18V5H7v13l5-2.18L17 18m0-15a2 2 0 0 1 2 2v16l-7-3-7 3V5c0-1.11.9-2 2-2h10m-6 4h2v2h2v2h-2v2h-2v-2H9V9h2V7z"/>
+    </symbol>
+    <symbol id="bookmark-remove" viewBox="0 0 24 24">
+      <title>bookmark-remove icon</title>
+      <path d="M17 3a2 2 0 0 1 2 2v16l-7-3-7 3V5c0-1.11.9-2 2-2h10M8.17 8.58L10.59 11l-2.42 2.41 1.42 1.42L12 12.41l2.41 2.42 1.42-1.42L13.41 11l2.42-2.42-1.42-1.41L12 9.58 9.59 7.17 8.17 8.58z"/>
     </symbol>
     <symbol id="check-box-outline-blank" viewBox="0 0 24 24">
       <title>check-box-outline-blank icon</title>
@@ -777,21 +785,41 @@
         </div>
       </div>
       <div class="icon">
-        <p>#bookmark_outline</p>
+        <p>#bookmark-outline-plus</p>
         <div class="icon-wrapper">
-          <svg role="img" class="bookmark_outline">
-            <use xlink:href="#bookmark_outline"></use>
+          <svg role="img" class="bookmark-outline-plus">
+            <use xlink:href="#bookmark-outline-plus"></use>
           </svg>
         </div>
         <div class="icon-dev">
-          <input class="show-code" id="toggle-bookmark_outline" type="checkbox" />
+          <input class="show-code" id="toggle-bookmark-outline-plus" type="checkbox" />
           <div class="icon-action">
-            <button onclick="gulpSvgSymbol.copy('code-bookmark_outline')">Copy</button>
-            <label onclick="gulpSvgSymbol.reflow('code-bookmark_outline')" for="toggle-bookmark_outline">Show</label>
+            <button onclick="gulpSvgSymbol.copy('code-bookmark-outline-plus')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-bookmark-outline-plus')" for="toggle-bookmark-outline-plus">Show</label>
           </div>
 <pre>
-<code id="code-bookmark_outline">&lt;svg role=&quot;img&quot; class=&quot;bookmark_outline&quot;&gt;
-  &lt;use xlink:href=&quot;#bookmark_outline&quot;&gt;&lt;/use&gt;
+<code id="code-bookmark-outline-plus">&lt;svg role=&quot;img&quot; class=&quot;bookmark-outline-plus&quot;&gt;
+  &lt;use xlink:href=&quot;#bookmark-outline-plus&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
+      </div>
+      <div class="icon">
+        <p>#bookmark-remove</p>
+        <div class="icon-wrapper">
+          <svg role="img" class="bookmark-remove">
+            <use xlink:href="#bookmark-remove"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-bookmark-remove" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-bookmark-remove')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-bookmark-remove')" for="toggle-bookmark-remove">Show</label>
+          </div>
+<pre>
+<code id="code-bookmark-remove">&lt;svg role=&quot;img&quot; class=&quot;bookmark-remove&quot;&gt;
+  &lt;use xlink:href=&quot;#bookmark-remove&quot;&gt;&lt;/use&gt;
 &lt;/svg&gt;</code>
 </pre>
         </div>
