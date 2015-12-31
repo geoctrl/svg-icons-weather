@@ -1,21 +1,24 @@
 {
-  "name": "tute-icons",
-  "version": "1.0.0",
+  "name": "svg-icons",
+  "version": "1.0.3",
   "description": "",
-  "main": "dist/tute-icons.js",
+  "main": "dist/svg-icons.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tutegenomics/icons.git"
+    "url": "https://github.com/geoctrl/svg-icons"
   },
-  "author": "",
+  "author": {
+	  "name": "Tony Lefler",
+	  "email": "tonylefler@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tutegenomics/icons/issues"
+    "url": "https://github.com/geoctrl/svg-icons/issues"
   },
-  "homepage": "https://github.com/tutegenomics/icons",
+  "homepage": "https://github.com/geoctrl/svg-icons",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.0",
