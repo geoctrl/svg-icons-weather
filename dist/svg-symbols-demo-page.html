@@ -209,6 +209,10 @@
         width: 24px;
         height: 24px;
       }
+      .file-image {
+        width: 24px;
+        height: 24px;
+      }
       .file {
         width: 24px;
         height: 24px;
@@ -457,6 +461,10 @@
     <symbol id="error" viewBox="0 0 24 24">
       <title>error icon</title>
       <path fill="#404040" d="M12 2C6.48 2 2 6.475 2 12s4.48 10 10 10 10-4.475 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+    </symbol>
+    <symbol id="file-image" viewBox="0 0 24 24">
+      <title>file-image icon</title>
+      <path d="M13 9h5.5L13 3.5V9M6 2h8l6 6v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2m0 18h12v-8l-4 4-2-2-6 6M8 9c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="#404040"/>
     </symbol>
     <symbol id="file" viewBox="0 0 24 24">
       <title>file icon</title>
@@ -1100,6 +1108,26 @@
 <pre>
 <code id="code-error">&lt;svg role=&quot;img&quot; class=&quot;error&quot;&gt;
   &lt;use xlink:href=&quot;#error&quot;&gt;&lt;/use&gt;
+&lt;/svg&gt;</code>
+</pre>
+        </div>
+      </div>
+      <div class="icon">
+        <p>#file-image</p>
+        <div class="icon-wrapper">
+          <svg role="img" class="file-image">
+            <use xlink:href="#file-image"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-file-image" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-file-image')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-file-image')" for="toggle-file-image">Show</label>
+          </div>
+<pre>
+<code id="code-file-image">&lt;svg role=&quot;img&quot; class=&quot;file-image&quot;&gt;
+  &lt;use xlink:href=&quot;#file-image&quot;&gt;&lt;/use&gt;
 &lt;/svg&gt;</code>
 </pre>
         </div>
